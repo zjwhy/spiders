@@ -5,3 +5,5 @@
 [某车之家->scrpayd](https://github.com/zjwhy/spiders/tree/main/autohome/autohome)
 
 [抖音->frida rpc 生成xg](https://github.com/zjwhy/spiders/tree/main/douyin_sevice)
+
+[网页通用爬虫->scrapyd](https://github.com/zjwhy/spiders/tree/main/TYspiders)

@@ -10,12 +10,9 @@ from uuid import uuid1
 
 class TyspidersPipeline(object):
     def open_spider(self, spider):
-        # self.conn = connect(host='rm-2ze1l2y2j5pv10l75jo.mysql.rds.aliyuncs.com', user='artin', password="Artin421258",port=3306,charset='utf8', db='clueprocessingplatform')
-        # self.conn = connect(host='127.0.0.1', user='root', password="z5487693", port=3306, charset='utf8',
-        #                     db='bilibili_test')
+
         self.conn = connect(server='127.0.0.1', user=r'LAPTOP-OQITIP8D\why_768', password=" ", database='test_db')
-        # self.conn = connect(server='123.56.26.226', user=r'db_bjartinadmin', password="db_gksq!@#$%100",
-        #                     database='clueprocessingplatform')
+
         self.cur = self.conn.cursor()
         self.all_sql = "select PrimaryClueAddress from {}"
         # self.i_sql = "insert into {}(Url,PlantFormID,ProcessingTime,VideoPath) VALUES ('{}','{}','{}','{}')"

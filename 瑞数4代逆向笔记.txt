@@ -1,0 +1,444 @@
+瑞数4代逆向笔记
+
+解密函数也需要扣下来因为$_ts数据生成通过解密函数生成
+ret = "";//_$OH.call(_$KO, _$mN);	这是第二层入口 抠代码不需要eval执行所以注释
+
+第二层入口
+Hook eval函数 或者搜索call方法
+
+1.手动需要补的环境
+	$_ts 有可能需要动态获取不确定那个时间有没有关联，调试就先写死
+	var window = global;
+
+	var cookie_dict = {
+	  // '_gscu_930750436':'387801188xb0ne18', 
+	  // '_gscbrs_930750436':'1', 
+	  // 'bg6':'64|A8spX', 
+	  // 'JSESSIONID':'2e382efb528108bd83bc0060e4de', 
+
+	'UR3ZMlLdcLIE80S':'Ea00zN9U.uVHcI7Pm_upbepFCYSPnlfXdyfidOKzLEMBnLbi2UlkH7495Xo3POeJ',
+
+	};
+
+	window.$_ts ={}; 
+	window.top =window;
+	window.self = window
+	window.location = {
+	  href:"http://cpquery.cnipa.gov.cn/",
+	  protocol:'http:',
+	  hostname:"cpquery.cnipa.gov.cn",
+	  port:""
+	};
+
+	window.name = "$_YWTU=Vip3DK1N5FaaoSbqxEUpOR5HZc2hK7Psvg9vfu41v.V&$_cDro=33&vdFm=";
+
+	window.sessionStorage = {
+	  $_YWTU: "Vip3DK1N5FaaoSbqxEUpOR5HZc2hK7Psvg9vfu41v.V",
+	  $_cDro: "33"}
+	  ;
+
+	window.localStorage = {
+	    
+	//   "FSSBB48":"455216:1","FSSBB90":"455216:1",
+	//   "$_YWTU":"Vip3DK1N5FaaoSbqxEUpOR5HZc2hK7Psvg9vfu41v.V",
+	//   "FSSBB3":"455216:p_CO06yF.r5tAW9CymWvta","$_fh0":"zxF1H75Ks6Ud9Mlp2tFYghVUuLl",
+	//   "FSSBB2":"455216:kLYrbg8y2kozJ74gEmL3fq",
+	//   "$_fb":"G5RK2eJyApb8Wq8QKkWFtNUaAMIWhNHjXFEC8Qfx6Pt9IApoy1pNgJqyjNihep84",
+	//   "FSSBB50":"455216:2","FSSBB17":"455216:3RFF7HOLzT_OwJgbrjvkAa",
+	//   "$_f1":"nNG1IYTVqrddmdOxx37uxqH12lA","$_f0":"jIzjoGqiMeK78qzJoL9fSzIf2fZ",
+	//   "__#classType":"localStorage","friends_with_mate":"true",
+	//   "FSSBB45":"455216:1","$_nd":"173806","FSSBB42":"455216:2",
+	//   "FSSBB18":"455216:CU8x3zaMyGH4PtKXylPqbq","$_cDro":"33","$_ck":"NM9GdvxsBpH2p2KPzMMAHq",
+	"FSSBB3": "455242:p_CO06yF.r5tAW9CymWvta",
+	"$_fh0": "zxF1H75Ks6Ud9Mlp2tFYghVUuLl",
+	"FSSBB2": "455242:kLYrbg8y2kozJ74gEmL3fq",
+	"FSSBB92": "455242:1",
+	"$_fb": ".DQdtHY8ouajziMbT7x5lVV7nj90TxDjTmIGu.WqlYLqTdO.zlAxN.vXXYZtdNoQ",
+	"$_YWTU": "Vip3DK1N5FaaoSbqxEUpOR5HZc2hK7Psvg9vfu41v.V",
+	"$_f1": "nNG1IYTVqrddmdOxx37uxqH12lA",
+	"$_f0": "jIzjoGqiMeK78qzJoL9fSzIf2fZ",
+	"FSSBB17": "455242:3RFF7HOLzT_OwJgbrjvkAa",
+	"__#classType": "localStorage",
+	"friends_with_mate": "true",
+	"$_nd": "35982",
+	"FSSBB42": "455242:2",
+	"FSSBB18": "455242:CU8x3zaMyGH4PtKXylPqbq",
+	"$_cDro": "33",
+	"$_ck": "NM9GdvxsBpH2p2KPzMMAHq",
+	"FSSBB43": "455242:2",
+	  getItem:function(key){
+
+	    return this[key]
+	  },
+	  setItem:function(key,value){
+	    this[key] = value;
+
+	  },
+	  removeItem:function(key){
+
+	    delete this[key]
+	    //this.pop(key)
+	  }
+	};
+
+	window.document = {
+	    createElement:function(val){
+	    return {
+	      innerHTML:"",
+	      getElementsByTagName:function(v){
+	        return []
+	      }
+	    }
+	    },
+	    addEventListener:function(a,b,c){},
+	    getElementsByTagName:function(a){return []},
+	    exitFullscreen:function(){},
+	    documentElement:{
+	        style:{},
+	        //'selenium', 'webdriver', 'driver']
+	        getAttribute:function(v){if (v == "selenium" || v == "webdriver" || v == "driver"){return null}else{throw new Error("document getAttribute error " +v)}},
+
+	    },
+	    write:function(v){
+	        //var reg = /name="(.+?)".+?value="(.+?)"/g
+	        let name = /name="(.+?)".+?value="(.+?)"/g.exec(v)[1]
+	        let value = /name="(.+?)".+?value="(.+?)"/g.exec(v)[2]
+	        this.my_onlod = {
+	            name:name,
+	            value:value,
+	            nodeType:1,
+	            nodeName:"INPUT",
+	            tagName:"INPUT"
+	        }
+
+	    },
+	    body:{
+	      tagName:"BODY",
+	      getAttribute:function(v){if (v == "onload" || v == "onclick" || v == "onsubmit"){return null}else{throw new Error("body getAttribute error " +v)}},
+	      firstChild:{
+	        nodeType:3,
+	        nextSibling:{
+	          nodeType:1,
+	          nextSibling:{},
+	          tagName:"INPUT",
+	          type:"hidden",
+	          getAttribute:function(v){if (v == "onload" || v == "onclick" || v == "onsubmit"){return null}else{throw new Error("body getAttribute error " +v)}},
+	        }
+	      },
+	      
+	     
+	  },
+	    getElementById:function(key){
+	        if(key ==="__onload__"){
+	            return this.my_onlod
+	        }
+	    },
+	    characterSet:"UTF-8",
+	    cookie:"",
+	    my_onlod:{}
+
+	};
+
+	Object.defineProperty(document,"cookie",{
+	    set:function(value){
+	        if (value !==""){
+	            let value_ = value.split(';')[0];
+	            let key = value_.split('=')[0];
+	            let kv = value_.split('=')[1];
+	            cookie_dict[key] = kv
+
+	        }},
+	      get:function(key){
+	        let result = ""
+	        if (!key){
+	          for (var k in cookie_dict){
+
+	            result = result + k;
+	            result = result + "="+cookie_dict[k]+"; "
+
+	        }
+	        }else{
+	          result = cookie_dict[key]
+	        }
+	        
+	        return result
+	      }
+
+	    });
+
+
+	window.indexedDB = {};
+	window.clearInterval = {};
+	window.setInterval = function(a,b){
+	    // debugger;
+	    // a()
+	}
+	window.XMLHttpRequest = {};
+
+	window.addEventListener = function(a,b,c,d){
+	  
+	};
+
+
+	window.navigator =  {
+	  "vendorSub": "",
+	  "productSub": "20030107",
+	  "vendor": "Google Inc.",
+	  "maxTouchPoints": 0,
+	  "hardwareConcurrency": 8,
+	  "appCodeName": "Mozilla",
+	  "appName": "Netscape",
+	  "appVersion": "5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+	  "platform": "MacIntel",
+	  "product": "Gecko",
+	  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+	  "language": "zh-CN",
+	  "languages": [
+	      "zh-CN",
+	      "zh"
+	  ],
+	  "deviceMemory": 8,
+	  webkitPersistentStorage:function(){},
+	  mimeTypes:{
+	    "0": {
+	        description: "",
+	        enabledPlugin: {0:{
+	            description: "",
+	            filename: "mhjfbmdgcfjbbpaeojofohoefgiehjai",
+	            length: 1,
+	            name: "Chrome PDF Viewer"
+	        }},
+	        suffixes: "pdf",
+	        type: "application/pdf"
+	    },
+	    "1": {
+	        description: "Portable Document Format",
+	        enabledPlugin: {0:{
+	            description: "Portable Document Format",
+	            filename: "internal-pdf-viewer",
+	            length: 1,
+	            name: "Chrome PDF Plugin"
+	        }},
+	        suffixes: "pdf",
+	        type: "application/x-google-chrome-pdf"
+	    },
+	    "2": {
+	        description: "Native Client Executable",
+	        enabledPlugin: {0:{},1:{},
+	        description: "",
+	        filename: "internal-nacl-plugin",
+	        length: 2,
+	        name: "Native Client"
+	        },
+	        suffixes: "",
+	        type: "application/x-nacl"
+	    },
+	    "3": {
+	        description: "Portable Native Client Executable",
+	        enabledPlugin: {
+	            0:{},1:{},
+	            description: "",
+	            filename: "internal-nacl-plugin",
+	            length: 2,
+	            name: "Native Client"
+	        },
+	        suffixes: "",
+	        type: "application/x-pnacl"
+	    }
+	    },
+	    getBattery:function(){
+	        return {
+	            then:function(v){
+	                // debugger;
+	                // v({
+	                // //   level:0.94,
+	                //   charging:true,
+	                //   chargingTime:2520
+	                // })
+	            }
+	        }
+
+	    },
+	    connection:{
+	        downlink: 5.4,
+	        effectiveType: "4g",
+	        onchange: null,
+	        rtt: 50,
+	        saveData: false
+	    },
+	    webdriver:false,
+	    cookieEnabled:true,
+	    hasOwnProperty:function(v){
+	        return false
+
+	    },
+	    plugins:{
+	        "0":{"0":{
+	            description: "Portable Document Format",
+	            filename: "internal-pdf-viewer",
+	            length: 1,
+	            name: "Chrome PDF Plugin"
+	        }},
+	        "1":{"0":{
+	            description: "",
+	            filename: "mhjfbmdgcfjbbpaeojofohoefgiehjai",
+	            length: 1,
+	            name: "Chrome PDF Viewer"
+	        }},
+	        "2":{"0":{},"1":{},
+	        description: "",
+	        filename: "internal-nacl-plugin",
+	        length: 2,
+	        name: "Native Client"
+	    }
+	    }
+	        
+	    
+	  
+	};
+
+	window.chrome = {
+	   
+	};
+	window.webkitRequestFileSystem =function(a,b,c,d){};
+
+	window.TEMPORARY = 0;
+
+	window.Infinity = {};
+
+	window.openDatabase = function(a,b,c,d){
+
+	  return {a:a,b:b,c:c,d:d}
+
+
+	};
+
+	window.clientInformation = window.navigator ;
+
+	window.screen = {
+	    availHeight: 900,
+	    availLeft: 0,
+	    availTop: 0,
+	    availWidth: 1440,
+	    colorDepth: 30,
+	    height: 900,
+	    orientation: {angle: 0, type: "landscape-primary", onchange: null},
+	    pixelDepth: 30,
+	    width: 1440
+	};
+	window.HTMLElement = function(){};
+
+
+2.为什么要补这些环境
+	Array.prototype.push.apply  一堆这个玩意儿进行个压缩会有一个算长度的操作
+
+	_$el("try{return (window instanceof Window);}catch(e){}")();	这个记得手动改成true _$el = Function
+	环境坑点
+		检测localStorage 这就是cookie短点原因
+
+		function _$rL() {
+      if (_$Au) {
+        try {
+          _$Au["___ts___"] = "___ts___";
+  
+          _$Au["removeItem"]("___ts___");
+  
+          _$Au["__#classType"] = "localStorage";
+        } catch (_$yh) {
+          _$Au = _$QX;
+        }
+      }
+    }
+
+    前边还有很多坑点手动跟进去一个一个调吧
+
+3.加密入口点搜索(5) 出来这种结构的就是加密入口但是需要找调用去找一个大坑点
+	
+	< 301 是加密最终生成点 return _$E8 + _$sy(_$rz["concat"](_$2D, _$GA)); //这就是最终生成cookie的位置 < 301 _$GA
+
+
+	function _$Zl() {
+	      var _$yh = _$OE(5);
+	  
+	      if (_$yh) {
+	        var _$5L = _$O0(_$ua);
+	  
+	        _$$i(_$5L, _$yh);
+	      }
+	  
+	      if (_$Au) {
+	        _$Au["$_ck"] = _$id(6);
+	      }
+	  
+	      _$wC(786, 1);
+	    }
+	 这就是最大的坑，load实际补环境滞空没有问题，但是最后需要手动去调用_$gf()这就是第一次生成cookie的一个入口长度才能跟网页对上
+	function _$Bt() {
+      _$jd(_$Lf, "load", _$gf);
+  
+      _$Zl();
+  
+      _$Wn.l__ = _$vI;
+  
+      _$QU();
+  
+      _$CJ();
+    }
+
+
+    _$cn(_$OE(25)); 这种结构的就是网站首次加载的时间
+
+    这种结构是获取meta数据的很重要
+
+      var _$jZ = _$lB["getElementsByTagName"]("meta");
+  
+      var _$sa = _$jZ[_$jZ.length - 1];
+      var _$_f = _$sa["content"];
+  
+      _$sa.parentNode["removeChild"](_$sa);
+
+      < 411  第二次生成cookie	获第一次生成的cookie长度一样
+
+      第三次cookie生成是。需要把setTimeout()去掉或删除获取herf的代码
+
+       _$ts(_$eh, 0);
+  
+      _$ts(_$MN, 0);
+    
+      (786, 13)  第三次加密入口
+
+     如果第三次生成还是长度短就把（56） 特征的一个等于的数组给写死
+     else {
+                  _$sa = [22, 118, 41, 105, 107, 35, 5, 185, 252, 34, 251, 65, 151, 38, 90, 102, 178, 13, 232, 152];//_$Nh(56);
+
+4.代码抠完了别高兴
+	_$fl('pEAi') 这个是生成三次cookie的关键数据 __onload__  input数据
+
+	<input type="hidden" id="__onload__" name="t84gsoUHUllwj0Yxjnb3NaYbqY8_6On3Qqb2siXHG2ZWGT1N5MTeNFJrxcrByP8mYh3m2vCnx7TQNiAnmro16a" value="MiwakPtoTfkWs9ZlhHdOsa">
+
+
+	<script type='text/javascript' r='m'>
+            _$fl('pEAi'); 	(2, 1)这是特征	 _$Sq = _$3g(_$Sq);
+  
+      if (_$3G[_$Sq]) {
+        _$Wt(2, 1);
+  
+        return;
+      } else {
+        _$3G[_$Sq] = 1;
+      }
+  
+      _$Wt(2, _$sM(8));
+  
+      _$lB["write"](_$dk(_$y2(_$Sq)));
+  
+      _$le();
+        </script>
+    </body>
+</html>
+	<script type="text/javascript" r="m">
+	    _$t$();
+	</script>
+
+
+128数组 取范围

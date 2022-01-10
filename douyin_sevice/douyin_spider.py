@@ -23,10 +23,9 @@ class DouYin(object):
         self.searchId = None
         self.cookie = {}
         self.parse_list =[]
-        # self.conn = connect(host="localhost", user="root", password="z5487693", port=3306, charset='utf8',
-        #                     database="qicc")
-        self.conn = connect(server='123.56.26.226', user=r'db_bjartinadmin', password="db_gksq!@#$%100",
-                            database='SpilderDataStorageDB')
+        self.conn = connect(host="localhost", user="root", password="z5487693", port=3306, charset='utf8',
+                            database="qicc")
+
         self.cur = self.conn.cursor()
         self.emu = emu
 

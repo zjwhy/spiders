@@ -9,7 +9,7 @@ class SMS:
         code = json.dumps({
             'code': _code
         }, ensure_ascii=True)
-        client = AcsClient('LTAI4G2EHXW77CHSYhSDFYG7', 'RfcxnkocY4YrpKMOu2PC4WggTLavnL', 'cn-hangzhou')
+        client = AcsClient('xxxxx', 'xxxxxx', 'cn-hangzhou')
         request = CommonRequest()
         request.set_accept_format('json')
         request.set_domain('dysmsapi.aliyuncs.com')

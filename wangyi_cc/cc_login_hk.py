@@ -4,7 +4,7 @@ from PIL import Image
 import cv2,io,time
 import numpy as np
 from requests.utils import cookiejar_from_dict,dict_from_cookiejar
-from wangyi_hk_.drag_detector import detection
+from .wangyi_hk_.drag_detector import detection
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)

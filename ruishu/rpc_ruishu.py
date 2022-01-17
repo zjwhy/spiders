@@ -2,7 +2,9 @@ import requests
 
 
 headers= {
+    # "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36"
+
 }
 
 cookies = "FSSBBIl1UgzbN7N80S=5xdiDtWZAgwcKZYVcrux00LfqpGrFPZUZn.MccUxh2j9Re1Nc.YrYECi0ewl1tFu; "
